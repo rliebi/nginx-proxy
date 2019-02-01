@@ -1,0 +1,31 @@
+version: '2'
+services:
+  nginx:
+    image: jwilder/nginx-proxy
+    network_mode: bridge
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+#      - ./dachcom.conf:/etc/nginx/conf.d/dachcom.conf:ro
+      - ./log:/var/log/nginx/
+      - ./nginx.tmpl:/app/nginx.tmpl:ro
+      - ./config/:/etc/nginx/conf.d
+#      - ~/.certs:/etc/nginx/certs
+    environment:
+      - DEFAULT_HOST=localhost
+    restart: always
+#  dns:
+#    image: 'jpillora/dnsmasq'
+#    restart: 'always'
+#    ports:
+#      - 5380:8080
+#      - 53:53/udp
+#    cap_add:
+#      - NET_ADMIN
+#    volumes:
+#      - './dnsmasq.conf:/etc/dnsmasq.conf'
+#    environment:
+#      - HTTP_USER=foo
+#      - HTTP_PASS=bar
