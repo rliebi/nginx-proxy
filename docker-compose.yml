@@ -2,7 +2,8 @@ version: '2'
 services:
   nginx:
     image: jwilder/nginx-proxy
-    network_mode: bridge
+    networks:
+      - vhost
     ports:
       - 80:80
       - 443:443
@@ -29,3 +30,7 @@ services:
 #    environment:
 #      - HTTP_USER=foo
 #      - HTTP_PASS=bar
+networks:
+  vhost:
+    name: vhost
+    external: true
